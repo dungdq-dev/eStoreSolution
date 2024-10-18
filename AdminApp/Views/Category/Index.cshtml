@@ -1,0 +1,105 @@
+﻿@using ViewModels.Common;
+@model PagedResponse<ViewModels.Catalog.Categories.CategoryDto>
+
+@{
+    ViewData["Title"] = "Danh sách loại sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script>
+        // set notify timeout
+        setTimeout(function () {
+            $('#msgAlertCategory').fadeOut('slow');
+        }, 2000);
+
+        // search category
+        //$("#searchBox").on("input", function () {
+        //    $.ajax({
+        //        method: "GET",
+        //        url: "Category/Index",
+        //        data: { keyword: $(this).val() },
+        //        success: function (response) {
+        //            $("div.container-fluid").html(response);
+        //        }
+        //    });
+        //});
+    </script>
+}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Loại sản phẩm</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+        <li class="breadcrumb-item active">List of category</li>
+    </ol>
+    <div class="card mb-12">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <a class="btn btn-outline-dark" asp-action="Create" asp-controller="Category">Thêm mới</a>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <form asp-action="Index" method="get">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input id="searchBox" type="text" value="@ViewBag.Keyword" name="keyword" placeholder="Nhập..." class="form-control" />
+                            </div>
+                            <div class="col col-md-4 align-self-lg-end">
+                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                <button type="button" onclick="window.location.href='/Category'" class="btn btn-dark align-self-md-end">Hủy</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.SuccessMsg != null)
+            {
+                <div id="msgAlertCategory" class="alert alert-success" role="alert">
+                    @ViewBag.SuccessMsg
+                </div>
+            }
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Tên loại sản phẩm
+                            </th>
+                            <th>
+                                SEO Title
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Data)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SeoTitle)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @await Component.InvokeAsync("Pager", Model)
+        </div>
+    </div>
+</div>

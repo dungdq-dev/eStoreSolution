@@ -1,0 +1,69 @@
+﻿@using Common.Helpers;
+@using Common.Enums;
+@model ViewModels.Catalog.Categories.CategoryCreateRequest
+
+@{
+    ViewData["Title"] = "Thêm loại sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Thêm loại sản phẩm</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+        <li class="breadcrumb-item active">Create category</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="col-md-4">
+                <form asp-action="Create" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Tên loại sản phẩm</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeoTitle" class="control-label">SEO Title</label>
+                        <input asp-for="SeoTitle" class="form-control" />
+                        <span asp-validation-for="SeoTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeoDescription" class="control-label">SEO Description</label>
+                        <input asp-for="SeoDescription" class="form-control" />
+                        <span asp-validation-for="SeoDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="display: none;">
+                        <label asp-for="LanguageId" class="control-label"></label>
+                        <input asp-for="LanguageId" class="form-control" />
+                        <span asp-validation-for="LanguageId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SortOrder" class="control-label">Thứ tự</label>
+                        <input asp-for="SortOrder" class="form-control" />
+                        <span asp-validation-for="SortOrder" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsShowOnHome" /> 
+                            @*@Html.DisplayNameFor(model => model.IsShowOnHome)*@
+                            Hiển thị trên trang chủ
+                        </label>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" value="Tạo mới" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Quay lại danh sách</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
