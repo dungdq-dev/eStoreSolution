@@ -62,27 +62,28 @@ namespace DataAccess.Extensions
             });
 
             // create root user
-            var RootUserId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
-            var hasher = new PasswordHasher<AppUser>();
-            modelBuilder.Entity<AppUser>().HasData(new AppUser
+            var rootUserId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
+            var rootUser = new AppUser
             {
-                Id = RootUserId,
+                Id = rootUserId,
                 UserName = "admin",
                 NormalizedUserName = "ADMIN",
                 Email = "eshopadmin@yahoo.com",
                 NormalizedEmail = "eshopadmin@yahoo.com",
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "Admin_123"),
                 SecurityStamp = string.Empty,
                 FirstName = "Dung",
                 LastName = "Dau",
-                Dob = new DateTime(year: 2000, month: 10, day: 17)
-            });
+                Dob = new DateTime(year: 2000, month: 10, day: 17, hour: 0, minute: 0, second: 0, kind: DateTimeKind.Utc)
+            };
+            var hasher = new PasswordHasher<AppUser>();
+            rootUser.PasswordHash = hasher.HashPassword(rootUser, "Admin_123");
+            modelBuilder.Entity<AppUser>().HasData(rootUser);
 
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
             {
                 RoleId = AdminRoleId,
-                UserId = RootUserId
+                UserId = rootUserId
             });
         }
     }
