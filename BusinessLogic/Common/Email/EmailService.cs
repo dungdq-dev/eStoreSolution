@@ -10,6 +10,13 @@ namespace BusinessLogic.Common.Email
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="subject"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public Task SendEmail(string email, string subject, string message)
         {
             var mailServer = SystemConstants.EmailSettings.MailServer;

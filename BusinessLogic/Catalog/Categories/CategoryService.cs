@@ -1,22 +1,24 @@
-﻿using Common.Constants;
+﻿using AutoMapper;
+using Common.Constants;
 using Common.Exceptions;
 using Common.Helpers;
 using DataAccess.Data;
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using ViewModels.Catalog.Categories;
-using ViewModels.Catalog.Products;
 using ViewModels.Common;
 
 namespace BusinessLogic.Catalog.Categories
 {
     public class CategoryService : ICategoryService
     {
+        private readonly IMapper _mapper;
         private readonly EStoreDbContext _context;
 
-        public CategoryService(EStoreDbContext context)
+        public CategoryService(EStoreDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<int> Create(CategoryCreateRequest request)
