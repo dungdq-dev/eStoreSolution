@@ -17,8 +17,7 @@ namespace ClientApp.Controllers
         private readonly IUserApiClient _userApiClient;
         private readonly IConfiguration _configuration;
 
-        public AccountController(IUserApiClient userApiClient,
-            IConfiguration configuration)
+        public AccountController(IUserApiClient userApiClient, IConfiguration configuration)
         {
             _userApiClient = userApiClient;
             _configuration = configuration;

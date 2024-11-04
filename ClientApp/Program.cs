@@ -5,6 +5,7 @@ using FluentValidation.AspNetCore;
 using LazZiya.ExpressLocalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using ViewModels.System.Users;
 
@@ -67,7 +68,7 @@ namespace ClientApp
 
             builder.Services.AddMvc(options =>
             {
-                //options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
             builder.Services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
@@ -90,8 +91,6 @@ namespace ClientApp
             builder.Services.AddTransient<IProductApiClient, ProductApiClient>();
             builder.Services.AddTransient<IOrderApiClient, OrderApiClient>();
             builder.Services.AddTransient<ISlideApiClient, SlideApiClient>();
-
-            //builder.Services.AddScoped<IEmailSender, EmailSender>();
 
             builder.Services.AddRazorPages();
 
@@ -149,10 +148,6 @@ namespace ClientApp
             app.MapControllerRoute(
                  name: "default",
                  pattern: "{culture=vi}/{controller=Home}/{action=Index}/{id?}");
-
-            //app.MapControllerRoute(
-            //    name: "default",
-            //    pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }
