@@ -1,3 +1,4 @@
+using AutoMapper;
 using BusinessLogic.Catalog.Categories;
 using BusinessLogic.Catalog.Products;
 using BusinessLogic.Common.Email;
@@ -18,6 +19,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ViewModels.System.Users;
+using WebApi.Mapper;
 
 namespace WebApi
 {
@@ -29,7 +31,8 @@ namespace WebApi
 
             // Add services to the container.
 
-            builder.Services.AddControllers(options => options.SuppressAsyncSuffixInActionNames = false);
+            builder.Services.AddControllers(
+                options => options.SuppressAsyncSuffixInActionNames = false);
 
             builder.Services.AddControllersWithViews()
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -47,12 +50,21 @@ namespace WebApi
                 options.AddBasePolicy(builder => builder.Cache());
             });
 
-            // Declare DI
-            builder.Services.AddSingleton<ISlideService, SlideService>();
-            builder.Services.AddSingleton<ILanguageService, LanguageService>();
+            // config automapper
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
 
-            builder.Services.AddScoped<IStorageService, FileStorageService>();
-            builder.Services.AddScoped<IEmailService, EmailService>();
+            IMapper mapper = mapperConfig.CreateMapper();
+            builder.Services.AddSingleton(mapper);
+
+            // Declare DI
+            builder.Services.AddScoped<ISlideService, SlideService>();
+            builder.Services.AddScoped<ILanguageService, LanguageService>();
+
+            builder.Services.AddTransient<IStorageService, FileStorageService>();
+            builder.Services.AddTransient<IEmailService, EmailService>();
 
             builder.Services.AddTransient<ICategoryService, CategoryService>();
             builder.Services.AddTransient<IProductService, ProductService>();

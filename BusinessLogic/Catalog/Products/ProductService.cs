@@ -54,6 +54,12 @@ namespace BusinessLogic.Catalog.Products
             return productImage.Id;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         public async Task AddViewcount(int productId)
         {
             var product = await _context.Products.FindAsync(productId);
@@ -228,6 +234,12 @@ namespace BusinessLogic.Catalog.Products
             return pagedResult;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="languageId"></param>
+        /// <returns></returns>
         public async Task<ApiResponse<ProductDto>> GetById(int productId, string languageId)
         {
             var product = await _context.Products.FindAsync(productId);
@@ -374,6 +386,13 @@ namespace BusinessLogic.Catalog.Products
             return await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="imageId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         public async Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request)
         {
             var productImage = await _context.ProductImages.FindAsync(imageId);
@@ -405,6 +424,11 @@ namespace BusinessLogic.Catalog.Products
             return await _context.SaveChangesAsync() > 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         private async Task<string> SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
@@ -501,6 +525,12 @@ namespace BusinessLogic.Catalog.Products
             return new ApiSuccessResponse<bool>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageId"></param>
+        /// <param name="take"></param>
+        /// <returns></returns>
         public async Task<List<ProductDto>> GetFeaturedProducts(string languageId, int take)
         {
             //1. Select join
@@ -538,6 +568,12 @@ namespace BusinessLogic.Catalog.Products
             return data;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageId"></param>
+        /// <param name="take"></param>
+        /// <returns></returns>
         public async Task<List<ProductDto>> GetLatestProducts(string languageId, int take)
         {
             //1. Select join

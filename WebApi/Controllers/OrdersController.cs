@@ -146,6 +146,16 @@ namespace WebApi.Controllers
             return Ok(orderDetails);
         }
 
+        /// <summary>
+        /// email body
+        /// </summary>
+        /// <param name="shipName"></param>
+        /// <param name="shipAddress"></param>
+        /// <param name="shipEmail"></param>
+        /// <param name="shipPhoneNumber"></param>
+        /// <param name="orderDetails"></param>
+        /// <param name="totalPayment"></param>
+        /// <returns></returns>
         private string PopulateBody(string shipName, string shipAddress, string shipEmail, string shipPhoneNumber, string orderDetails, decimal totalPayment)
         {
             string body = string.Empty;

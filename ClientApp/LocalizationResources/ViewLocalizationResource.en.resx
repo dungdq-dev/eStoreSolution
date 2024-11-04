@@ -261,4 +261,7 @@
     <value>View details</value>
     <comment>/Product/Category</comment>
   </data>
+  <data name="Payment Methods" xml:space="preserve">
+    <value>Payment Methods</value>
+  </data>
 </root>
