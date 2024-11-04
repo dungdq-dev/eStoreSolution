@@ -14,9 +14,7 @@ namespace ApiIntegration
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public RoleApiClient(IHttpClientFactory httpClientFactory,
-                   IHttpContextAccessor httpContextAccessor,
-                    IConfiguration configuration)
+        public RoleApiClient(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;

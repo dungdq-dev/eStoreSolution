@@ -17,14 +17,16 @@ namespace WebApi.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
+        private readonly ILogger _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IOrderService _orderService;
         private readonly IOrderDetailService _orderDetailService;
         private readonly IProductService _productService;
         private readonly IEmailService _emailSender;
 
-        public OrdersController(IOrderService orderService, IOrderDetailService orderDetailService, IEmailService emailSender, IWebHostEnvironment webHostEnvironment, IProductService productService)
+        public OrdersController(ILogger logger, IOrderService orderService, IOrderDetailService orderDetailService, IEmailService emailSender, IWebHostEnvironment webHostEnvironment, IProductService productService)
         {
+            _logger = logger;
             _orderService = orderService;
             _orderDetailService = orderDetailService;
             _emailSender = emailSender;
@@ -46,7 +48,7 @@ namespace WebApi.Controllers
             if (orderId == 0)
                 return BadRequest();
 
-            var order = _orderService.GetById(orderId);
+            var order = await _orderService.GetById(orderId);
             var orderDetails = _orderDetailService.GetOrderDetails(new GetOrderDetailsPagingRequest()
             {
                 OrderId = orderId,
@@ -83,11 +85,15 @@ namespace WebApi.Controllers
             try
             {
                 await _emailSender.SendEmail(request.ShipEmail, "Xác nhận đơn hàng",
-                    PopulateBody(order.Result.Data.ShipName, order.Result.Data.ShipAddress, order.Result.Data.ShipEmail, order.Result.Data.ShipPhoneNumber, detailList.ToString(), totalPayment));
+                    PopulateBody(order.Data.ShipName, order.Data.ShipAddress, order.Data.ShipEmail, order.Data.ShipPhoneNumber, detailList.ToString(), totalPayment));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new ArgumentException("Failed to send email. Error message: " + e);
+                throw new ArgumentException("Failed to send email. Error message: " + ex);
+            }
+            finally
+            {
+                _logger.LogInformation("Người dùng đặt hàng thành công");
             }
 
             return Created();

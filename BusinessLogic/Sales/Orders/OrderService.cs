@@ -44,7 +44,7 @@ namespace BusinessLogic.Sales.Orders
                 ShipAddress = request.ShipAddress,
                 ShipEmail = request.ShipEmail,
                 ShipPhoneNumber = request.ShipPhoneNumber,
-                Status = request.Status,
+                Status = OrderStatus.Pending,
                 OrderDetails = orderDetails
             };
 

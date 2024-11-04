@@ -12,15 +12,17 @@ namespace ClientApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ISharedCultureLocalizer _loc;
+        private readonly ISharedCultureLocalizer _localizer;
         private readonly ISlideApiClient _slideApiClient;
         private readonly IProductApiClient _productApiClient;
 
         public HomeController(ILogger<HomeController> logger,
+            ISharedCultureLocalizer localizer,
             ISlideApiClient slideApiClient,
             IProductApiClient productApiClient)
         {
             _logger = logger;
+            _localizer = localizer;
             _slideApiClient = slideApiClient;
             _productApiClient = productApiClient;
         }
