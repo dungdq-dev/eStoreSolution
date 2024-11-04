@@ -49,7 +49,7 @@ namespace WebApi.Controllers
                 return BadRequest();
 
             var order = await _orderService.GetById(orderId);
-            var orderDetails = _orderDetailService.GetOrderDetails(new GetOrderDetailsPagingRequest()
+            var orderDetails = await _orderDetailService.GetOrderDetails(new GetOrderDetailsPagingRequest()
             {
                 OrderId = orderId,
                 PageIndex = 1,
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
             StringBuilder detailList = new StringBuilder();
             decimal totalPayment = 0;
 
-            foreach (var item in orderDetails.Result.Data)
+            foreach (var item in orderDetails.Data)
             {
                 var product = await _productService.GetById(item.ProductId, "vi");
 
