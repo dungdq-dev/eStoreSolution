@@ -38,7 +38,7 @@ namespace ClientApp.Controllers
             var result = await _userApiClient.Authenticate(request);
             if (result.Data == null)
             {
-                ModelState.AddModelError("", "Login failure");
+                ModelState.AddModelError("", "Đăng nhập thất bại");
                 return View();
             }
             var userPrincipal = this.ValidateToken(result.Data);
@@ -59,8 +59,7 @@ namespace ClientApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
 
@@ -94,7 +93,7 @@ namespace ClientApp.Controllers
             var userPrincipal = this.ValidateToken(loginResult.Data);
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60),
                 IsPersistent = false
             };
             HttpContext.Session.SetString(SystemConstants.AppSettings.Token, loginResult.Data);
@@ -114,7 +113,6 @@ namespace ClientApp.Controllers
             TokenValidationParameters validationParameters = new TokenValidationParameters();
 
             validationParameters.ValidateLifetime = true;
-
             validationParameters.ValidAudience = _configuration["Tokens:Issuer"];
             validationParameters.ValidIssuer = _configuration["Tokens:Issuer"];
             validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));

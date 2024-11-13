@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Common.Constants;
 using Common.Exceptions;
 using Common.Helpers;
@@ -21,6 +22,11 @@ namespace BusinessLogic.Catalog.Categories
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// create new category
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<int> Create(CategoryCreateRequest request)
         {
             var languages = await _context.Languages.ToListAsync();
@@ -63,6 +69,12 @@ namespace BusinessLogic.Catalog.Categories
             return category.Id;
         }
 
+        /// <summary>
+        /// delete category by id
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         public async Task<int> Delete(int categoryId)
         {
             var category = await _context.Categories.FindAsync(categoryId);
@@ -85,21 +97,28 @@ namespace BusinessLogic.Catalog.Categories
                         where ct.LanguageId == languageId
                         select new { c, ct };
 
-            return await query.Select(x => new CategoryDto()
+            var categories = await query.Select(x => new CategoryDto()
             {
                 Id = x.c.Id,
+                IsShowOnHome = x.c.IsShowOnHome,
+                SortOrder = x.c.SortOrder,
+                Status = x.c.Status,
+                ParentId = x.c.ParentId,
                 Name = x.ct.Name,
                 SeoAlias = x.ct.SeoAlias,
                 SeoTitle = x.ct.SeoTitle,
                 SeoDescription = x.ct.SeoDescription,
                 LanguageId = x.ct.LanguageId,
-                IsShowOnHome = x.c.IsShowOnHome,
-                SortOrder = x.c.SortOrder,
-                Status = x.c.Status,
-                ParentId = x.c.ParentId
             }).ToListAsync();
+
+            return categories;
         }
 
+        /// <summary>
+        /// get categories paged response
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<PagedResponse<CategoryDto>> GetAllPaged(GetCategoryPagingRequest request)
         {
             //1. Select join
@@ -141,6 +160,12 @@ namespace BusinessLogic.Catalog.Categories
             return result;
         }
 
+        /// <summary>
+        /// get category by id
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="languageId"></param>
+        /// <returns></returns>
         public async Task<ApiResponse<CategoryDto>> GetById(int categoryId, string languageId)
         {
             var query = from c in _context.Categories
@@ -168,6 +193,12 @@ namespace BusinessLogic.Catalog.Categories
             return new ApiSuccessResponse<CategoryDto>(result);
         }
 
+        /// <summary>
+        /// update category
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         public async Task<int> Update(CategoryUpdateRequest request)
         {
             var category = await _context.Categories.FindAsync(request.Id);

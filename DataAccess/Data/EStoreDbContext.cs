@@ -19,24 +19,21 @@ namespace DataAccess.Data
             builder.ApplyConfiguration(new AppConfigConfiguration());
             builder.ApplyConfiguration(new AppUserConfiguration());
             builder.ApplyConfiguration(new AppRoleConfiguration());
-
+            builder.ApplyConfiguration(new LanguageConfiguration());
             builder.ApplyConfiguration(new ProductConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new ProductCategoryConfiguration());
             builder.ApplyConfiguration(new ProductImageConfiguration());
             builder.ApplyConfiguration(new CategoryTranslationConfiguration());
             builder.ApplyConfiguration(new ContactConfiguration());
-            builder.ApplyConfiguration(new LanguageConfiguration());
             builder.ApplyConfiguration(new ProductTranslationConfiguration());
             builder.ApplyConfiguration(new PromotionConfiguration());
             builder.ApplyConfiguration(new ProductReviewConfiguration());
-
+            builder.ApplyConfiguration(new SlideConfiguration());
             builder.ApplyConfiguration(new CartConfiguration());
             builder.ApplyConfiguration(new OrderConfiguration());
             builder.ApplyConfiguration(new OrderDetailConfiguration());
             builder.ApplyConfiguration(new TransactionConfiguration());
-
-            builder.ApplyConfiguration(new SlideConfiguration());
 
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             builder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
