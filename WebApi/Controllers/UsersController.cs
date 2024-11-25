@@ -54,7 +54,7 @@ namespace WebApi.Controllers
         [Authorize]
         public async Task<IActionResult> GetUsers([FromQuery] GetUserPagingRequest request)
         {
-            var user = await _userService.GetAllPaged(request);
+            var user = await _userService.GetListPaged(request);
             return Ok(user);
         }
 

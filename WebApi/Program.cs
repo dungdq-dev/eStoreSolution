@@ -34,9 +34,6 @@ namespace WebApi
             builder.Services.AddControllers(
                 options => options.SuppressAsyncSuffixInActionNames = false);
 
-            builder.Services.AddControllersWithViews()
-                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
             builder.Services.AddDbContext<EStoreDbContext>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.DefaultConnection) ??
                 throw new InvalidOperationException($"Connection string '{SystemConstants.DefaultConnection}' not found.")));
@@ -60,12 +57,6 @@ namespace WebApi
             builder.Services.AddSingleton(mapper);
 
             // Declare DI
-            builder.Services.AddScoped<ISlideService, SlideService>();
-            builder.Services.AddScoped<ILanguageService, LanguageService>();
-
-            builder.Services.AddTransient<IStorageService, FileStorageService>();
-            builder.Services.AddTransient<IEmailService, EmailService>();
-
             builder.Services.AddTransient<ICategoryService, CategoryService>();
             builder.Services.AddTransient<IProductService, ProductService>();
             builder.Services.AddTransient<IOrderService, OrderService>();
@@ -77,15 +68,16 @@ namespace WebApi
             builder.Services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             builder.Services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
 
-            builder.Services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
-            builder.Services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
+            builder.Services.AddScoped<IStorageService, FileStorageService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
+
+            builder.Services.AddScoped<ISlideService, SlideService>();
+            builder.Services.AddScoped<ILanguageService, LanguageService>();
+
+            builder.Services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
+            builder.Services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
 
             builder.Services.AddHttpContextAccessor();
-
-            builder.Services.AddMvc(options =>
-            {
-                options.SuppressAsyncSuffixInActionNames = false;
-            });
 
             // add cors to access api for single-page app
             var eStoreAllowSpecificOrigins = "_eStoreAllowSpecificOrigins";
@@ -165,11 +157,14 @@ namespace WebApi
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI();
+            //}
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 

@@ -8,7 +8,7 @@ namespace BusinessLogic.Catalog.Products
     {
         Task<int> Create(ProductCreateRequest request);
 
-        Task<PagedResponse<ProductDto>> GetAll(GetProductPagingRequest request);
+        Task<PagedResponse<ProductDto>> GetListPaged(GetProductPagingRequest request);
 
         Task<ApiResponse<ProductDto>> GetById(int productId, string languageId);
 

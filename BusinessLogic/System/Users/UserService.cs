@@ -138,7 +138,7 @@ namespace BusinessLogic.System.Users
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<PagedResponse<UserDto>> GetAllPaged(GetUserPagingRequest request)
+        public async Task<PagedResponse<UserDto>> GetListPaged(GetUserPagingRequest request)
         {
             var query = _userManager.Users;
             if (!string.IsNullOrEmpty(request.Keyword))

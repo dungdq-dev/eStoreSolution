@@ -1,4 +1,4 @@
-﻿using ViewModels.Sales.OrderDetails;
+﻿using ViewModels.Sales.Orders;
 
 namespace ClientApp.Models
 {
@@ -6,6 +6,6 @@ namespace ClientApp.Models
     {
         public List<CartItemViewModel> CartItems { get; set; }
 
-        public CheckoutRequest CheckoutModel { get; set; }
+        public OrderCreateRequest CheckoutModel { get; set; }
     }
 }

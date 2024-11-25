@@ -5,7 +5,7 @@ namespace Common.Enums
     public enum OrderStatus
     {
         [Display(Name = "Đang chờ xác nhận")]
-        InProgress = 1,
+        Pending = 1,
 
         [Display(Name = "Đã xác nhận")]
         Confirmed = 2,

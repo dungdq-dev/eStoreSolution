@@ -4,6 +4,6 @@ namespace BusinessLogic.System.Roles
 {
     public interface IRoleService
     {
-        Task<List<RoleDto>> GetAll();
+        Task<List<RoleDto>> GetList();
     }
 }

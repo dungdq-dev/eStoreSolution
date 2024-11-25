@@ -23,7 +23,7 @@ namespace AdminApp
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Login";
-                    options.LogoutPath = "/Users/Logout";
+                    options.LogoutPath = "/User/Logout";
                     options.AccessDeniedPath = "/Login";
                 });
 
@@ -44,7 +44,7 @@ namespace AdminApp
 
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
             });
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -68,7 +68,7 @@ namespace AdminApp
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 

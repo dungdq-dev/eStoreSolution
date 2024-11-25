@@ -40,14 +40,14 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetList([FromQuery] string languageId)
         {
-            var categories = await _categoryService.GetAll(languageId);
+            var categories = await _categoryService.GetList(languageId);
             return Ok(categories);
         }
 
         [HttpGet("paged")]
         public async Task<IActionResult> GetAllPaged([FromQuery] GetCategoryPagingRequest request)
         {
-            var categories = await _categoryService.GetAllPaged(request);
+            var categories = await _categoryService.GetListPaged(request);
             return Ok(categories);
         }
 

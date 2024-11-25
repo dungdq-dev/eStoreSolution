@@ -44,7 +44,7 @@ namespace WebApi.Controllers
             if (request.PageIndex == 0) request.PageIndex = 1;
             if (request.PageSize == 0) request.PageSize = int.MaxValue;
 
-            var products = await _productService.GetAll(request);
+            var products = await _productService.GetListPaged(request);
             return Ok(products);
         }
 

@@ -55,45 +55,45 @@ else
     </table>
 
     <table class="table table-bordered">
-        <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
+        <tr><th><localize>ESTIMATE YOUR SHIPPING</localize> </th></tr>
         <tr>
             <td>
                 <form class="form-horizontal" action="/@culture/Cart/Checkout" method="post">
                     <div class="control-group">
-                        <label class="control-label" for="inputCountry">Name </label>
+                        <label class="control-label" for="inputCountry"><localize>Full name</localize> </label>
                         <div class="controls">
-                            <input type="text" id="inputCountry" asp-for="CheckoutModel.Name" placeholder="Name">
+                            <input type="text" id="inputCountry" asp-for="CheckoutModel.ShipName" placeholder="Name">
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="inputCountry">Address </label>
+                        <label class="control-label" for="inputCountry"><localize>Address</localize> </label>
                         <div class="controls">
-                            <input type="text" id="inputCountry" asp-for="CheckoutModel.Address" placeholder="Address">
+                            <input type="text" id="inputCountry" asp-for="CheckoutModel.ShipAddress" placeholder="Address">
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label class="control-label" for="inputCountry">Email </label>
                         <div class="controls">
-                            <input type="text" id="inputCountry" asp-for="CheckoutModel.Email" placeholder="Email">
+                            <input type="email" id="inputCountry" asp-for="CheckoutModel.ShipEmail" placeholder="Email">
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="inputCountry">PhoneNumber </label>
+                        <label class="control-label" for="inputCountry"><localize>Phone number</localize> </label>
                         <div class="controls">
-                            <input type="text" id="inputCountry" asp-for="CheckoutModel.PhoneNumber" placeholder="PhoneNumber">
+                            <input type="tel" id="inputCountry" asp-for="CheckoutModel.ShipPhoneNumber" placeholder="PhoneNumber">
                         </div>
                     </div>
 
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">Purchase </button>
+                            <button type="submit" class="btn"><localize>Purchase</localize> </button>
                         </div>
                     </div>
                 </form>
             </td>
         </tr>
     </table>
-    <a href="/" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
+    <a href="/" class="btn btn-large"><i class="icon-arrow-left"></i> <localize>Continue Shopping</localize> </a>
 }

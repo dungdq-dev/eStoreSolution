@@ -44,7 +44,7 @@ namespace BusinessLogic.Sales.Orders
                 ShipAddress = request.ShipAddress,
                 ShipEmail = request.ShipEmail,
                 ShipPhoneNumber = request.ShipPhoneNumber,
-                Status = request.Status,
+                Status = OrderStatus.Pending,
                 OrderDetails = orderDetails
             };
 
@@ -58,7 +58,7 @@ namespace BusinessLogic.Sales.Orders
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<PagedResponse<OrderDto>> GetAll(GetOrderPagingRequest request)
+        public async Task<PagedResponse<OrderDto>> GetList(GetOrderPagingRequest request)
         {
             // 1. Select join
             var query = from o in _context.Orders
