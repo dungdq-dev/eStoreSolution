@@ -20,7 +20,7 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetSlides()
         {
-            var slides = await _slideService.GetAll();
+            var slides = await _slideService.GetList();
             return Ok(slides);
         }
     }

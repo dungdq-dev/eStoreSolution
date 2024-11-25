@@ -99,7 +99,6 @@ namespace AdminApp.Controllers
             {
                 Id = category.Data.Id,
                 Name = category.Data.Name,
-                SeoAlias = category.Data.SeoAlias,
                 SeoDescription = category.Data.SeoDescription,
                 SeoTitle = category.Data.SeoTitle,
                 SortOrder = category.Data.SortOrder,

@@ -5,6 +5,6 @@ namespace BusinessLogic.System.Languages
 {
     public interface ILanguageService
     {
-        Task<ApiResponse<List<LanguageDto>>> GetAll();
+        Task<ApiResponse<List<LanguageDto>>> GetList();
     }
 }

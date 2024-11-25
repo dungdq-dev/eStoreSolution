@@ -11,7 +11,7 @@ namespace BusinessLogic.System.Users
 
         Task<ApiResponse<bool>> Update(Guid id, UserUpdateRequest request);
 
-        Task<PagedResponse<UserDto>> GetAllPaged(GetUserPagingRequest request);
+        Task<PagedResponse<UserDto>> GetListPaged(GetUserPagingRequest request);
 
         Task<ApiResponse<UserDto>> GetById(Guid id);
 

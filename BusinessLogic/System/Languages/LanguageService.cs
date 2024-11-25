@@ -19,7 +19,7 @@ namespace BusinessLogic.System.Languages
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<List<LanguageDto>>> GetAll()
+        public async Task<ApiResponse<List<LanguageDto>>> GetList()
         {
             // execute stored procedure from sql server
             var query = await _context.Languages
@@ -29,7 +29,7 @@ namespace BusinessLogic.System.Languages
 
             // use automapper to map entity class with dto
             var languages = query
-                .Select(lang => _mapper.Map<Language, LanguageDto>(lang)).ToList();
+                .Select(_mapper.Map<Language, LanguageDto>).ToList();
 
             return new ApiSuccessResponse<List<LanguageDto>>(languages);
         }

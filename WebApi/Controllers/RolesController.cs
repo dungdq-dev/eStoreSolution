@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRoles()
         {
-            var roles = await _roleService.GetAll();
+            var roles = await _roleService.GetList();
             return Ok(roles);
         }
     }

@@ -13,7 +13,7 @@ namespace BusinessLogic.Utilities.Slides
             _context = context;
         }
 
-        public async Task<List<SlideDto>> GetAll()
+        public async Task<List<SlideDto>> GetList()
         {
             var slides = await _context.Slides.OrderBy(x => x.SortOrder)
                 .Select(x => new SlideDto()

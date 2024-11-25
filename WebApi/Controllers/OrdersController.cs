@@ -103,7 +103,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrders([FromQuery] GetOrderPagingRequest request)
         {
-            var orders = await _orderService.GetAll(request);
+            var orders = await _orderService.GetList(request);
             return Ok(orders);
         }
 

@@ -14,7 +14,7 @@ namespace BusinessLogic.System.Roles
             _roleManager = roleManager;
         }
 
-        public async Task<List<RoleDto>> GetAll()
+        public async Task<List<RoleDto>> GetList()
         {
             var roles = await _roleManager.Roles.Select(x => new RoleDto()
             {

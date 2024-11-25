@@ -177,7 +177,7 @@ namespace BusinessLogic.Catalog.Products
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<PagedResponse<ProductDto>> GetAll(GetProductPagingRequest request)
+        public async Task<PagedResponse<ProductDto>> GetListPaged(GetProductPagingRequest request)
         {
             //1. Select join
             var query = from p in _context.Products

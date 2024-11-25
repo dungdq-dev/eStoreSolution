@@ -98,7 +98,6 @@ namespace ApiIntegration
             {
                 { new StringContent(string.IsNullOrEmpty(request.Name) ? "" : request.Name.ToString()), "name" },
                 { new StringContent(string.IsNullOrEmpty(request.SeoTitle) ? "" : request.SeoTitle.ToString()), "seoTitle" },
-                { new StringContent(string.IsNullOrEmpty(request.SeoAlias) ? "" : request.SeoAlias.ToString()), "seoAlias" },
                 { new StringContent(string.IsNullOrEmpty(request.SeoDescription) ? "" : request.SeoDescription.ToString()), "seoDescription" },
                 { new StringContent(request.LanguageId), "languageId" },
                 { new StringContent(request.SortOrder.ToString()), "sortOrder" },

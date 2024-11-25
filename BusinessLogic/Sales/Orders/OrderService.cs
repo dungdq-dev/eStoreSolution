@@ -58,7 +58,7 @@ namespace BusinessLogic.Sales.Orders
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<PagedResponse<OrderDto>> GetAll(GetOrderPagingRequest request)
+        public async Task<PagedResponse<OrderDto>> GetList(GetOrderPagingRequest request)
         {
             // 1. Select join
             var query = from o in _context.Orders

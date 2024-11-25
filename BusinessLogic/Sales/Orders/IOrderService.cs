@@ -8,7 +8,7 @@ namespace BusinessLogic.Sales.Orders
     {
         Task<int> Create(OrderCreateRequest request);
 
-        Task<PagedResponse<OrderDto>> GetAll(GetOrderPagingRequest request);
+        Task<PagedResponse<OrderDto>> GetList(GetOrderPagingRequest request);
 
         Task<ApiResponse<OrderDto>> GetById(int orderId);
 

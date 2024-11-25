@@ -19,7 +19,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetLanguages()
         {
-            var languages = await _languageService.GetAll();
+            var languages = await _languageService.GetList();
             return Ok(languages);
         }
     }

@@ -90,7 +90,7 @@ namespace BusinessLogic.Catalog.Categories
         /// </summary>
         /// <param name="languageId"></param>
         /// <returns>CategoryDto</returns>
-        public async Task<List<CategoryDto>> GetAll(string languageId)
+        public async Task<List<CategoryDto>> GetList(string languageId)
         {
             var query = from c in _context.Categories
                         join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId
@@ -119,7 +119,7 @@ namespace BusinessLogic.Catalog.Categories
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<PagedResponse<CategoryDto>> GetAllPaged(GetCategoryPagingRequest request)
+        public async Task<PagedResponse<CategoryDto>> GetListPaged(GetCategoryPagingRequest request)
         {
             //1. Select join
             var query = from c in _context.Categories

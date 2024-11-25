@@ -7,9 +7,9 @@ namespace BusinessLogic.Catalog.Categories
     {
         Task<int> Create(CategoryCreateRequest request);
 
-        Task<List<CategoryDto>> GetAll(string languageId);
+        Task<List<CategoryDto>> GetList(string languageId);
 
-        Task<PagedResponse<CategoryDto>> GetAllPaged(GetCategoryPagingRequest request);
+        Task<PagedResponse<CategoryDto>> GetListPaged(GetCategoryPagingRequest request);
 
         Task<ApiResponse<CategoryDto>> GetById(int categoryId, string languageId);
 
