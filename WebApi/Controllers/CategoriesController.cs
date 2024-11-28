@@ -45,7 +45,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("paged")]
-        public async Task<IActionResult> GetAllPaged([FromQuery] GetCategoryPagingRequest request)
+        public async Task<IActionResult> GetCategoryListPaged([FromQuery] GetCategoryPagingRequest request)
         {
             var categories = await _categoryService.GetListPaged(request);
             return Ok(categories);

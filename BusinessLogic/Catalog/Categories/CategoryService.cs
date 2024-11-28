@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Common.Constants;
 using Common.Exceptions;
 using Common.Helpers;
@@ -92,24 +91,26 @@ namespace BusinessLogic.Catalog.Categories
         /// <returns>CategoryDto</returns>
         public async Task<List<CategoryDto>> GetList(string languageId)
         {
+            // get category list to display on client screen
             var query = from c in _context.Categories
                         join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId
-                        where ct.LanguageId == languageId
+                        where ct.LanguageId == languageId && c.IsShowOnHome
                         select new { c, ct };
 
-            var categories = await query.Select(x => new CategoryDto()
-            {
-                Id = x.c.Id,
-                IsShowOnHome = x.c.IsShowOnHome,
-                SortOrder = x.c.SortOrder,
-                Status = x.c.Status,
-                ParentId = x.c.ParentId,
-                Name = x.ct.Name,
-                SeoAlias = x.ct.SeoAlias,
-                SeoTitle = x.ct.SeoTitle,
-                SeoDescription = x.ct.SeoDescription,
-                LanguageId = x.ct.LanguageId,
-            }).ToListAsync();
+            var categories = await query.Select(
+                x => new CategoryDto()
+                {
+                    Id = x.c.Id,
+                    IsShowOnHome = x.c.IsShowOnHome,
+                    SortOrder = x.c.SortOrder,
+                    Status = x.c.Status,
+                    ParentId = x.c.ParentId,
+                    Name = x.ct.Name,
+                    SeoAlias = x.ct.SeoAlias,
+                    SeoTitle = x.ct.SeoTitle,
+                    SeoDescription = x.ct.SeoDescription,
+                    LanguageId = x.ct.LanguageId,
+                }).ToListAsync();
 
             return categories;
         }
@@ -173,18 +174,19 @@ namespace BusinessLogic.Catalog.Categories
                         where ct.LanguageId == languageId && c.Id == categoryId
                         select new { c, ct };
 
-            var result = await query.Select(x => new CategoryDto()
-            {
-                Id = x.c.Id,
-                Name = x.ct.Name,
-                SeoDescription = x.ct.SeoDescription,
-                SeoTitle = x.ct.SeoTitle,
-                SeoAlias = x.ct.SeoAlias,
-                SortOrder = x.c.SortOrder,
-                IsShowOnHome = x.c.IsShowOnHome,
-                Status = x.c.Status,
-                ParentId = x.c.ParentId
-            }).FirstOrDefaultAsync();
+            var result = await query.Select(
+                x => new CategoryDto()
+                {
+                    Id = x.c.Id,
+                    Name = x.ct.Name,
+                    SeoDescription = x.ct.SeoDescription,
+                    SeoTitle = x.ct.SeoTitle,
+                    SeoAlias = x.ct.SeoAlias,
+                    SortOrder = x.c.SortOrder,
+                    IsShowOnHome = x.c.IsShowOnHome,
+                    Status = x.c.Status,
+                    ParentId = x.c.ParentId
+                }).FirstOrDefaultAsync();
 
             if (result == null)
             {

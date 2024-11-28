@@ -221,7 +221,7 @@ namespace BusinessLogic.Catalog.Products
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount,
                     ThumbnailImage = x.pi.ImagePath
-                }).Distinct().ToListAsync();
+                }).ToListAsync();
 
             //4. Select and projection
             var pagedResult = new PagedResponse<ProductDto>()
@@ -247,6 +247,7 @@ namespace BusinessLogic.Catalog.Products
             var productTranslation = await _context.ProductTranslations
                 .FirstOrDefaultAsync(x => x.ProductId == productId && x.LanguageId == languageId);
 
+            // lấy danh sách category của product
             var categories = await (from c in _context.Categories
                                     join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId
                                     join pc in _context.ProductCategories on c.Id equals pc.CategoryId
