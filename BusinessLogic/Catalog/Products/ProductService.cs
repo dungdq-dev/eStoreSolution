@@ -499,8 +499,8 @@ namespace BusinessLogic.Catalog.Products
         /// <returns></returns>
         public async Task<ApiResponse<bool>> CategoryAssign(int productId, CategoryAssignRequest request)
         {
-            var user = await _context.Products.FindAsync(productId);
-            if (user == null)
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null)
             {
                 return new ApiErrorResponse<bool>($"Sản phẩm với id {productId} không tồn tại");
             }
